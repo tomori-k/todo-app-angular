@@ -1,0 +1,24 @@
+<form [formGroup]="formGroup">
+  <label for="title">タイトル</label>
+  <input id="title" type="text" formControlName="title" />
+  <div *ngIf="titleForm.invalid && (titleForm.dirty || titleForm.touched)">
+    <p *ngIf="titleForm.errors && titleForm.errors['required']">
+      title is required.
+    </p>
+  </div>
+
+  <label for="body">TODO</label>
+  <textarea id="body" formControlName="body"></textarea>
+  <div *ngIf="bodyForm.invalid && (bodyForm.dirty || bodyForm.touched)">
+    <p *ngIf="bodyForm.errors && bodyForm.errors['required']">
+      TODO body is required.
+    </p>
+  </div>
+
+  <select formControlName="category">
+    <option *ngFor="let category of categories" [value]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+  <button type="button">追加</button>
+</form>
