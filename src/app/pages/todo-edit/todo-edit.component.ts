@@ -7,19 +7,8 @@ import {
 } from '@angular/forms'
 import { Todo, TodoCategory } from '../../models'
 import { CommonModule } from '@angular/common'
-
-async function getTodo(id: number): Promise<Todo> {
-  // 一旦ダミーデータを返す
-  return {
-    id: id,
-    categoryId: 1,
-    title: 'Improve design',
-    body: 'improve the design of the header',
-    state: 0,
-    updatedAt: new Date(2000, 5, 14, 12, 31, 59),
-    createdAt: new Date(2000, 5, 14, 12, 31, 59),
-  }
-}
+import { TodoService } from '../../services/todo-service'
+import { toInt } from '../../utils/converter'
 
 @Component({
   selector: 'app-todo-edit',
@@ -61,11 +50,13 @@ export class TodoEditComponent {
     },
   ]
 
+  constructor(private readonly todoService: TodoService) {}
+
   // path parameters
 
   @Input()
-  set id(todoId: number) {
-    this._loadTodo(todoId)
+  set id(todoId: string) {
+    this._loadTodo(toInt(todoId))
   }
 
   // form controls
@@ -87,7 +78,7 @@ export class TodoEditComponent {
   }
 
   private async _loadTodo(todoId: number) {
-    const todo = await getTodo(todoId)
+    const todo = await this.todoService.getTodo(todoId)
 
     this.formTitle.setValue(todo.title)
     this.formBody.setValue(todo.body)

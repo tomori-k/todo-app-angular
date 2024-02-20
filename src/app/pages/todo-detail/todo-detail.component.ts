@@ -2,19 +2,8 @@ import { Component, Input } from '@angular/core'
 import { Todo } from '../../models'
 import { RouterLink } from '@angular/router'
 import { CommonModule } from '@angular/common'
-
-async function getTodo(id: number): Promise<Todo> {
-  // 一旦ダミーデータを返す
-  return {
-    id: id,
-    categoryId: 1,
-    title: 'Improve design',
-    body: 'improve the design of the header',
-    state: 0,
-    updatedAt: new Date(2000, 5, 14, 12, 31, 59),
-    createdAt: new Date(2000, 5, 14, 12, 31, 59),
-  }
-}
+import { TodoService } from '../../services/todo-service'
+import { toInt } from '../../utils/converter'
 
 @Component({
   selector: 'app-todo-detail',
@@ -26,8 +15,10 @@ async function getTodo(id: number): Promise<Todo> {
 export class TodoDetailComponent {
   public todoPromise: Promise<Todo> | null = null
 
+  constructor(private readonly todoService: TodoService) {}
+
   @Input()
-  set id(todoId: number) {
-    this.todoPromise = getTodo(todoId)
+  set id(todoId: string) {
+    this.todoPromise = this.todoService.getTodo(toInt(todoId))
   }
 }
