@@ -8,6 +8,8 @@
   <h3>操作</h3>
   <ul>
     <li><a [routerLink]="['/edit', todo.id]">編集</a></li>
-    <li>削除</li>
+    <li>
+      <button type="button" (click)="onRemoveClicked(todo.id)">削除</button>
+    </li>
   </ul>
 </ng-container>

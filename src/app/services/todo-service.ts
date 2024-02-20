@@ -64,4 +64,9 @@ export class TodoService {
       ...todo,
     }
   }
+
+  public async remove(id: number) {
+    const idx = this.todoList.findIndex((t) => t.id === id)
+    this.todoList.splice(idx, 1)
+  }
 }
