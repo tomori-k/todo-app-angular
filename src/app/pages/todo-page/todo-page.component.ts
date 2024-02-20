@@ -1,11 +1,12 @@
 import { Component } from '@angular/core'
 import { Todo } from '../../models'
 import { TodoListComponent } from '../../components/todo/todo-list/todo-list.component'
+import { RouterLink } from '@angular/router'
 
 @Component({
   selector: 'app-todo-page',
   standalone: true,
-  imports: [TodoListComponent],
+  imports: [TodoListComponent, RouterLink],
   templateUrl: './todo-page.component.html',
   styleUrl: './todo-page.component.scss',
 })
