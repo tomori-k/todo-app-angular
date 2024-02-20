@@ -1,0 +1,32 @@
+<form [formGroup]="formGroup">
+  <label for="title">タイトル</label>
+  <input id="title" type="text" formControlName="title" />
+  <div *ngIf="formTitle.invalid && (formTitle.dirty || formTitle.touched)">
+    <p *ngIf="formTitle.errors && formTitle.errors['required']">
+      title is required.
+    </p>
+  </div>
+
+  <label for="body">TODO</label>
+  <textarea id="body" formControlName="body"></textarea>
+  <div *ngIf="formBody.invalid && (formBody.dirty || formBody.touched)">
+    <p *ngIf="formBody.errors && formBody.errors['required']">
+      TODO body is required.
+    </p>
+  </div>
+
+  <label for="category">カテゴリ</label>
+  <select id="category" formControlName="category">
+    <option *ngFor="let category of categories" [value]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+
+  <label for="state">ステータス</label>
+  <select id="state" formControlName="state">
+    <option [value]="0">TODO(着手前)</option>
+    <option [value]="1">進行中</option>
+    <option [value]="2">完了</option>
+  </select>
+  <button type="button">編集</button>
+</form>
