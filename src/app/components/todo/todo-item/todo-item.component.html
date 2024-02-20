@@ -1,1 +1,3 @@
-<li>{{ todo.title }}</li>
+<li>
+  <a [routerLink]="['/todo', todo.id]">{{ todo.title }}</a>
+</li>

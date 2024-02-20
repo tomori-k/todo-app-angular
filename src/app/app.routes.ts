@@ -4,6 +4,7 @@ import { TodoPageComponent } from './pages/todo-page/todo-page.component'
 import { TodoCreateComponent } from './pages/todo-create/todo-create.component'
 import { TodoEditComponent } from './pages/todo-edit/todo-edit.component'
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component'
+import { TodoDetailComponent } from './pages/todo-detail/todo-detail.component'
 
 export const routes: Routes = [
   {
@@ -15,6 +16,11 @@ export const routes: Routes = [
     path: 'list',
     component: TodoPageComponent,
     title: 'TODO',
+  },
+  {
+    path: 'todo/:id',
+    component: TodoDetailComponent,
+    title: 'TODO Detail',
   },
   {
     path: 'create',
