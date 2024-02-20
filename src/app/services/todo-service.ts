@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Todo, TodoCreate } from '../models'
+import { Todo, TodoCreate, TodoUpdate } from '../models'
 
 @Injectable({
   providedIn: 'root',
@@ -55,5 +55,13 @@ export class TodoService {
       updatedAt: timestamp,
       createdAt: timestamp,
     })
+  }
+
+  public async update(todo: TodoUpdate) {
+    const idx = this.todoList.findIndex((t) => t.id === todo.id)
+    this.todoList[idx] = {
+      ...this.todoList[idx],
+      ...todo,
+    }
   }
 }

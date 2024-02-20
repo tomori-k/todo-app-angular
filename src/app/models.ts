@@ -16,6 +16,14 @@ export type TodoCreate = {
   body: string
 }
 
+export type TodoUpdate = {
+  id: number
+  categoryId: number
+  title: string
+  body: string
+  state: TodoState
+}
+
 export type TodoCategory = {
   id: number
   name: string
