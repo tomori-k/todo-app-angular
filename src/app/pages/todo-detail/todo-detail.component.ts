@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core'
 import { Todo } from '../../models'
 import { RouterLink } from '@angular/router'
+import { CommonModule } from '@angular/common'
 
-function getTodo(id: number): Todo {
+async function getTodo(id: number): Promise<Todo> {
   // 一旦ダミーデータを返す
   return {
     id: id,
@@ -18,15 +19,15 @@ function getTodo(id: number): Todo {
 @Component({
   selector: 'app-todo-detail',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './todo-detail.component.html',
   styleUrl: './todo-detail.component.scss',
 })
 export class TodoDetailComponent {
-  public todo: Todo | null = null
+  public todoPromise: Promise<Todo> | null = null
 
   @Input()
   set id(todoId: number) {
-    this.todo = getTodo(todoId)
+    this.todoPromise = getTodo(todoId)
   }
 }

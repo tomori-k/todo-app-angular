@@ -1,11 +1,13 @@
-<h2>{{ todo?.title }}</h2>
-<p>{{ todo?.body }}</p>
-<h3>カテゴリ</h3>
-<p>{{ todo?.categoryId }}</p>
-<h3>ステータス</h3>
-<p>{{ todo?.state }}</p>
-<h3>操作</h3>
-<ul>
-  <li><a [routerLink]="['/edit', todo?.id]">編集</a></li>
-  <li>削除</li>
-</ul>
+<ng-container *ngIf="todoPromise | async as todo">
+  <h2>{{ todo.title }}</h2>
+  <p>{{ todo.body }}</p>
+  <h3>カテゴリ</h3>
+  <p>{{ todo.categoryId }}</p>
+  <h3>ステータス</h3>
+  <p>{{ todo.state }}</p>
+  <h3>操作</h3>
+  <ul>
+    <li><a [routerLink]="['/edit', todo.id]">編集</a></li>
+    <li>削除</li>
+  </ul>
+</ng-container>

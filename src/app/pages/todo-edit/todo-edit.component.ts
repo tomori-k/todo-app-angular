@@ -8,7 +8,7 @@ import {
 import { Todo, TodoCategory } from '../../models'
 import { CommonModule } from '@angular/common'
 
-function getTodo(id: number): Todo {
+async function getTodo(id: number): Promise<Todo> {
   // 一旦ダミーデータを返す
   return {
     id: id,
@@ -65,12 +65,7 @@ export class TodoEditComponent {
 
   @Input()
   set id(todoId: number) {
-    const todo = getTodo(todoId)
-
-    this.formTitle.setValue(todo.title)
-    this.formBody.setValue(todo.body)
-    this.formCategory.setValue(todo.categoryId)
-    this.formState.setValue(todo.state)
+    this._loadTodo(todoId)
   }
 
   // form controls
@@ -89,5 +84,14 @@ export class TodoEditComponent {
 
   get formState() {
     return this.formGroup.controls.state
+  }
+
+  private async _loadTodo(todoId: number) {
+    const todo = await getTodo(todoId)
+
+    this.formTitle.setValue(todo.title)
+    this.formBody.setValue(todo.body)
+    this.formCategory.setValue(todo.categoryId)
+    this.formState.setValue(todo.state)
   }
 }
