@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms'
 import { TodoService } from '../../services/todo-service'
+import { TodoCategoryService } from '../../services/todo-category-service'
 import { Router } from '@angular/router'
 
 @Component({
@@ -24,34 +25,17 @@ export class TodoCreateComponent {
     category: new FormControl(0),
   })
 
-  public readonly categories: TodoCategory[] = [
-    {
-      id: 1,
-      name: 'frontend',
-      color: '1',
-      updatedAt: new Date(2021, 3, 9, 7, 48, 56),
-      createdAt: new Date(2021, 3, 9, 4, 8, 57),
-    },
-    {
-      id: 2,
-      name: 'backend',
-      color: '2',
-      updatedAt: new Date(2021, 3, 9, 7, 48, 56),
-      createdAt: new Date(2021, 3, 9, 4, 8, 57),
-    },
-    {
-      id: 3,
-      name: 'infra',
-      color: '3',
-      updatedAt: new Date(2021, 3, 9, 7, 48, 56),
-      createdAt: new Date(2021, 3, 9, 4, 8, 57),
-    },
-  ]
+  public categoryListPromise: Promise<TodoCategory[]> | null = null
 
   public constructor(
     private readonly router: Router,
-    private readonly todoService: TodoService
+    private readonly todoService: TodoService,
+    private readonly todoCategoryService: TodoCategoryService
   ) {}
+
+  public ngOnInit() {
+    this.categoryListPromise = this.todoCategoryService.getAll()
+  }
 
   // form getters
 

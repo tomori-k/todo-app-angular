@@ -16,11 +16,13 @@
   </div>
 
   <label for="category">カテゴリ</label>
-  <select id="category" formControlName="category">
-    <option *ngFor="let category of categories" [value]="category.id">
-      {{ category.name }}
-    </option>
-  </select>
+  <ng-container *ngIf="categoryListPromise | async as categories">
+    <select id="category" formControlName="category">
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
+  </ng-container>
 
   <label for="state">ステータス</label>
   <select id="state" formControlName="state">

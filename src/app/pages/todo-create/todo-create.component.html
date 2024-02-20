@@ -15,10 +15,13 @@
     </p>
   </div>
 
-  <select formControlName="category">
-    <option *ngFor="let category of categories" [value]="category.id">
-      {{ category.name }}
-    </option>
-  </select>
+  <ng-container *ngIf="categoryListPromise | async as categories">
+    <select formControlName="category">
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
+  </ng-container>
+
   <button type="button" (click)="onCreateClicked()">追加</button>
 </form>
