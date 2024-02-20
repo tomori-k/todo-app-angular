@@ -10,6 +10,12 @@ export type Todo = {
   createdAt: Date
 }
 
+export type TodoCreate = {
+  categoryId: number
+  title: string
+  body: string
+}
+
 export type TodoCategory = {
   id: number
   name: string

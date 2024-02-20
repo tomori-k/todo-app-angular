@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { TodoCategory } from '../../models'
+import { TodoCategory, TodoCreate } from '../../models'
 import { CommonModule } from '@angular/common'
 import {
   FormControl,
@@ -7,6 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
+import { TodoService } from '../../services/todo-service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-todo-create',
@@ -46,6 +48,11 @@ export class TodoCreateComponent {
     },
   ]
 
+  public constructor(
+    private readonly router: Router,
+    private readonly todoService: TodoService
+  ) {}
+
   // form getters
 
   get titleForm() {
@@ -58,5 +65,31 @@ export class TodoCreateComponent {
 
   get categoryForm() {
     return this.formGroup.controls.category
+  }
+
+  // event handlers
+
+  public async onCreateClicked() {
+    const formData = this.getFormData()
+
+    if (formData == null) {
+      return
+    }
+
+    await this.todoService.create(formData)
+
+    this.router.navigate(['/list'])
+  }
+
+  private getFormData(): TodoCreate | null {
+    if (this.formGroup.invalid) {
+      return null
+    }
+
+    return {
+      categoryId: this.formGroup.value.category!,
+      title: this.formGroup.value.title!,
+      body: this.formGroup.value.body!,
+    }
   }
 }

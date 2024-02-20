@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Todo } from '../models'
+import { Todo, TodoCreate } from '../models'
 
 @Injectable({
   providedIn: 'root',
@@ -44,5 +44,16 @@ export class TodoService {
 
   public async getAll(): Promise<Todo[]> {
     return this.todoList
+  }
+
+  public async create(todo: TodoCreate) {
+    const timestamp = new Date()
+    this.todoList.push({
+      ...todo,
+      id: this.todoList.length + 1,
+      state: 0,
+      updatedAt: timestamp,
+      createdAt: timestamp,
+    })
   }
 }
