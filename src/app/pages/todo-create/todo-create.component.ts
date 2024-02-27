@@ -10,6 +10,7 @@ import {
 import { TodoService } from '../../services/todo-service'
 import { TodoCategoryService } from '../../services/todo-category-service'
 import { Router } from '@angular/router'
+import { toInt } from '../../utils/converter'
 
 @Component({
   selector: 'app-todo-create',
@@ -22,7 +23,7 @@ export class TodoCreateComponent {
   public readonly formGroup = new FormGroup({
     title: new FormControl('', Validators.required),
     body: new FormControl('', Validators.required),
-    category: new FormControl(0),
+    category: new FormControl(''),
   })
 
   public categoryListPromise: Promise<TodoCategory[]> | null = null
@@ -71,7 +72,7 @@ export class TodoCreateComponent {
     }
 
     return {
-      categoryId: this.formGroup.value.category!,
+      categoryId: toInt(this.formGroup.value.category!),
       title: this.formGroup.value.title!,
       body: this.formGroup.value.body!,
     }

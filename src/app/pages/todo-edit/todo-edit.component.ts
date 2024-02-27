@@ -24,8 +24,8 @@ export class TodoEditComponent {
     id: new FormControl<number | null>(null, Validators.required),
     title: new FormControl('', Validators.required),
     body: new FormControl('', Validators.required),
-    category: new FormControl(0),
-    state: new FormControl<TodoState | null>(0),
+    category: new FormControl(''),
+    state: new FormControl('', [Validators.min(0), Validators.max(2)]),
   })
 
   public categoryListPromise: Promise<TodoCategory[]> | null = null
@@ -75,8 +75,8 @@ export class TodoEditComponent {
     this.formId.setValue(todo.id)
     this.formTitle.setValue(todo.title)
     this.formBody.setValue(todo.body)
-    this.formCategory.setValue(todo.categoryId)
-    this.formState.setValue(todo.state)
+    this.formCategory.setValue(todo.categoryId.toString())
+    this.formState.setValue(todo.state.toString())
   }
 
   private getFormData(): TodoUpdate | null {
@@ -86,10 +86,12 @@ export class TodoEditComponent {
 
     return {
       id: this.formId.value!,
-      categoryId: this.formCategory.value!,
+      categoryId: toInt(this.formCategory.value!),
       title: this.formTitle.value!,
       body: this.formBody.value!,
-      state: this.formState.value!,
+      state: toInt(
+        this.formState.value!
+      ) as TodoState /* Validator を通ってるなら 0-2 の数値であることが確定している */,
     }
   }
 
