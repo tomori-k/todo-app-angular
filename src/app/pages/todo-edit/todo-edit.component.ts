@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { Todo, TodoCategory, TodoState, TodoUpdate } from '../../models'
+import { TodoCategory, TodoState, TodoUpdate } from '../../models'
 import { CommonModule } from '@angular/common'
 import { TodoService } from '../../services/todo-service'
 import { toInt } from '../../utils/converter'
@@ -75,7 +75,7 @@ export class TodoEditComponent {
     this.formId.setValue(todo.id)
     this.formTitle.setValue(todo.title)
     this.formBody.setValue(todo.body)
-    this.formCategory.setValue(todo.categoryId.toString())
+    this.formCategory.setValue(todo.category?.id.toString() ?? '')
     this.formState.setValue(todo.state.toString())
   }
 
