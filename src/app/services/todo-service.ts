@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core'
 import { Todo, TodoCreate, TodoUpdate } from '../models'
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   public async getTodo(todoId: number): Promise<Todo> {
-    const response = await fetch(`http://localhost:9000/todo/${todoId}`, {
+    const response = await fetch(`${environment.apiUrl}/todo/${todoId}`, {
       method: 'GET',
     })
     const todo = await response.json()
@@ -14,7 +15,7 @@ export class TodoService {
   }
 
   public async getAll(): Promise<Todo[]> {
-    const response = await fetch('http://localhost:9000/todo/list', {
+    const response = await fetch(`${environment.apiUrl}/todo/list`, {
       method: 'GET',
     })
     const todoList = await response.json()
@@ -22,7 +23,7 @@ export class TodoService {
   }
 
   public async create(todo: TodoCreate) {
-    await fetch('http://localhost:9000/todo', {
+    await fetch(`${environment.apiUrl}/todo`, {
       method: 'POST',
       body: JSON.stringify(todo),
       headers: {
@@ -32,7 +33,7 @@ export class TodoService {
   }
 
   public async update(todo: TodoUpdate) {
-    await fetch('http://localhost:9000/todo', {
+    await fetch(`${environment.apiUrl}/todo`, {
       method: 'PUT',
       body: JSON.stringify(todo),
       headers: {
@@ -42,7 +43,7 @@ export class TodoService {
   }
 
   public async remove(id: number) {
-    await fetch(`http://localhost:9000/todo/${id}`, {
+    await fetch(`${environment.apiUrl}/todo/${id}`, {
       method: 'DELETE',
     })
   }
